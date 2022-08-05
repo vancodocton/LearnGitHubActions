@@ -39,7 +39,7 @@ jobs:
           dotnet build --configuration Release --no-restore LearnGitHubActions.sln
 
       - name: Update database
-        run: dotnet ef database update --configuration Release -p src/WebMvc/ --no-build
+        run: dotnet ef migrations bundle --configuration Release -p src/WebMvc/ --no-build
 
       - name: dotnet publish
         run: dotnet publish -c Release -o src/WebMvc/ --no-build
@@ -48,7 +48,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: WebMvc
-          path: ./src/WebMvc
+          path: |
+            ./src/WebMvc
+            efbundle.**
 
   deploy:
     runs-on: ubuntu-latest
