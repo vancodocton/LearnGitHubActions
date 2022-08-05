@@ -47,10 +47,11 @@ jobs:
         run: | 
           dotnet ef migrations bundle --configuration Release -p src/WebMvc/ --no-build --verbose
           ls
+          echo '----------'
           ls src/WebMvc/
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o src/WebMvc/ --no-build
+        run: dotnet publish  --configuration Release -o src/WebMvc/ --no-build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
