@@ -21,6 +21,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
             connectionString = builder.Configuration.GetConnectionString("LocalSqlServer");
             options.UseSqlServer(connectionString, options => options.MigrationsAssembly("Infrastructure.SqlServer"));
             break;
+        case "PostgreSql":
+            connectionString = builder.Configuration.GetConnectionString("PostgreSqlConnection");
+            options.UseNpgsql(connectionString, options => options.MigrationsAssembly("Infrastructure.PostgreSql"));
+            break;
         default:
             throw new ArgumentException("Database Provider is not supported.", nameof(databaseProvider));
     }
