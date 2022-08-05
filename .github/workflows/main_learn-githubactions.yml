@@ -49,7 +49,6 @@ jobs:
           dotnet ef migrations bundle --configuration Release --no-build --verbose -o -f
           ls
           echo '----------'
-          ls src/WebMvc/
 
       - name: dotnet publish
         run: dotnet publish  --configuration Release -o src/WebMvc/ --no-build
