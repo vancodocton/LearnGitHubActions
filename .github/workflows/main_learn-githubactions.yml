@@ -53,9 +53,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: WebMvc
-          path: |
-            ./src/WebMvc
-            efbundle.**
+          path: ./src/WebMvc
+
 
   deploy:
     runs-on: ubuntu-latest
