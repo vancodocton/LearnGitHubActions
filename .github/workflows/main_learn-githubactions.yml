@@ -39,7 +39,7 @@ jobs:
           dotnet build --configuration Release --no-restore LearnGitHubActions.sln
 
       - name: Update database
-        run: dotnet ef database update -c Release -p src/WebMvc/ --no-build
+        run: dotnet ef database update --configuration Release -p src/WebMvc/ --no-build
 
       - name: dotnet publish
         run: dotnet publish -c Release -o src/WebMvc/ --no-build
