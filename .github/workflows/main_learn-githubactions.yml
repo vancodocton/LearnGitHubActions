@@ -36,8 +36,6 @@ jobs:
       - name: Build with dotnet
         run: |
           dotnet build --configuration Release LearnGitHubActions.sln
-          cd src/WebMvc
-          libman restore
 
       - name: Update database
         run: dotnet ef database update -p src\WebMvc\ --no-build
