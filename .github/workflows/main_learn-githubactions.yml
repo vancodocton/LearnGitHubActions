@@ -43,8 +43,11 @@ jobs:
         run: |
           dotnet build --configuration Release --no-restore LearnGitHubActions.sln
 
-      - name: Update database
-        run: dotnet ef migrations bundle --configuration Release -p src/WebMvc/ --no-build  -o src/WebMvc/ --verbose
+      - name: Create ebbundle
+        run: | 
+          dotnet ef migrations bundle --configuration Release -p src/WebMvc/ --no-build --verbose
+          ls
+          ls src/WebMvc/
 
       - name: dotnet publish
         run: dotnet publish -c Release -o src/WebMvc/ --no-build
