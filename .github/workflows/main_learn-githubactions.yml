@@ -34,7 +34,10 @@ jobs:
         run: dotnet tool restore
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release --no-restore LearnGitHubActions.sln
+        run: ||
+          dotnet build --configuration Release LearnGitHubActions.sln
+          cd src/WebMvc
+          libman restore
 
       - name: Update database
         run: dotnet ef database update -p src\WebMvc\ --no-build
