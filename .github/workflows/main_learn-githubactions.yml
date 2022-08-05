@@ -34,7 +34,7 @@ jobs:
         run: dotnet tool restore
 
       - name: Build with dotnet
-        run: ||
+        run: |
           dotnet build --configuration Release LearnGitHubActions.sln
           cd src/WebMvc
           libman restore
