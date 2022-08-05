@@ -7,9 +7,19 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/WebMvc/WebMvc.csproj",
+                "${workspaceFolder}/LearnGitHubActions.sln",
                 "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "--no-restore",
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "restore",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "restore",
+                "${workspaceFolder}/LearnGitHubActions.sln",
             ],
             "problemMatcher": "$msCompile"
         },
