@@ -1,13 +1,30 @@
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using WebMvc.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("SqliteConnection");
+var databaseProvider = builder.Configuration.GetValue<string>("DatabaseProvider")
+    ?? throw new ArgumentNullException("databaseProvide", "Database Provider is not provided.");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString));
+{
+    string connectionString;
+    switch (databaseProvider)
+    {
+        case "Sqlite":
+            connectionString = builder.Configuration.GetConnectionString("SqliteConnection");
+            options.UseSqlite(connectionString, options => options.MigrationsAssembly("Infrastructure.Sqlite"));
+            break;
+        case "SqlServer":
+            connectionString = builder.Configuration.GetConnectionString("LocalSqlServer");
+            options.UseSqlServer(connectionString, options => options.MigrationsAssembly("Infrastructure.SqlServer"));
+            break;
+        default:
+            throw new ArgumentException("Database Provider is not supported.", nameof(databaseProvider));
+    }
+});
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
