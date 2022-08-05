@@ -43,13 +43,10 @@ jobs:
         run: |
           dotnet build --configuration Release --no-restore LearnGitHubActions.sln
 
-      - name: Create ebbundle
+      - name: Create efbundle
         run: | 
-          cd src/WebMvc/
-          dotnet ef migrations bundle --configuration Release --no-build --verbose -r linux-x64
-          dotnet ef migrations bundle --configuration Release --no-build --verbose -r win-x64
-          ls
-          echo '----------'
+          dotnet ef migrations bundle --configuration Release --no-build --verbose -p src/WebMvc/ -o src/WebMvc/efbundle -r linux-x64
+          dotnet ef migrations bundle --configuration Release --no-build --verbose -p src/WebMvc/ -o src/WebMvc/efbundle.exe -r win-x64
 
       - name: dotnet publish
         run: dotnet publish  --configuration Release -o src/WebMvc/ --no-build
