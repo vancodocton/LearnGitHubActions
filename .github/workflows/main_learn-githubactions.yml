@@ -10,12 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: FinalProjectIdentityServer
-  AZURE_WEBAPP_PACKAGE_PATH: src/IdentityServer/publish  
   AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9B2B14DAD3244A539BA9234F415ADFFD }}
-  CONFIGURATION: Release
-  DOTNET_CORE_VERSION: 6.0.x
-  WORKING_DIRECTORY: src/IdentityServer
 
 jobs:
   build:
@@ -38,10 +33,10 @@ jobs:
           dotnet build --configuration Release LearnGitHubActions.sln
 
       - name: Update database
-        run: dotnet ef database update -p src\WebMvc\ --no-build
+        run: dotnet ef database update -c Release -p src/WebMvc/ --no-build
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o src/WebMvc --no-build
+        run: dotnet publish -c Release -o src/WebMvc/ --no-build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
