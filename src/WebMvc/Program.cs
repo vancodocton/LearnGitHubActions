@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using WebMvc.Data;
+using Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var databaseProvider = builder.Configuration.GetValue<string>("DatabaseProvider") 
+var databaseProvider = builder.Configuration.GetValue<string>("DatabaseProvider")
     ?? throw new ArgumentNullException("databaseProvide", "Database Provider is not provided.");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

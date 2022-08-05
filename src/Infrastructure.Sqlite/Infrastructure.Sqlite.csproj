@@ -6,12 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <BaseOutputPath>..\WebMvc\bin\</BaseOutputPath>
-  </PropertyGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\WebMvc\WebMvc.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
   
 </Project>
