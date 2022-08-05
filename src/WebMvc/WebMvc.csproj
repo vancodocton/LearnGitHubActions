@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure.Sqlite\Infrastructure.Sqlite.csproj" />
     <ProjectReference Include="..\Infrastructure.SqlServer\Infrastructure.SqlServer.csproj" />
+    <ProjectReference Include="..\Infrastructure.PostgreSql\Infrastructure.PostgreSql.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
