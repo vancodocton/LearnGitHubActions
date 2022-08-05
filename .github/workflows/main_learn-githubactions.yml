@@ -46,7 +46,7 @@ jobs:
       - name: Create ebbundle
         run: | 
           cd src/WebMvc/
-          dotnet ef migrations bundle --configuration Release -p src/WebMvc/ --no-build --verbose -o -f
+          dotnet ef migrations bundle --configuration Release --no-build --verbose -o -f
           ls
           echo '----------'
           ls src/WebMvc/
