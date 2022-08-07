@@ -47,7 +47,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: 
       - demo2
+    steps:
+      - name: demo
+        run: |
+          echo "Finished";
+  
+  demo5:
+    runs-on: ubuntu-latest
+    needs: 
       - demo3
+      - demo4
     steps:
       - name: demo
         run: |
