@@ -7,14 +7,20 @@ on:
   push:
     branches:
       - main
+    paths:
+      - src/**
+      - .github/workflows/main_learn-githubactions.yml 
   pull_request:
     branches:
       - main
     types:
-    - opened
-    - synchronize
-    - reopened
-    - ready_for_review
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+    paths:
+      - src/**
+      - .github/workflows/main_learn-githubactions.yml
   workflow_dispatch:
 
 env:
