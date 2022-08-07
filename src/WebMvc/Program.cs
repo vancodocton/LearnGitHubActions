@@ -1,34 +1,15 @@
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using WebMvc.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var databaseProvider = builder.Configuration.GetValue<string>("DatabaseProvider")
     ?? throw new ArgumentNullException("databaseProvide", "Database Provider is not provided.");
+var connectionStringsSection = builder.Configuration.GetRequiredSection("ConnectionStrings");
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    string connectionString;
-    switch (databaseProvider)
-    {
-        case "Sqlite":
-            connectionString = builder.Configuration.GetConnectionString("SqliteConnection");
-            options.UseSqlite(connectionString, options => options.MigrationsAssembly("Infrastructure.Sqlite"));
-            break;
-        case "SqlServer":
-            connectionString = builder.Configuration.GetConnectionString("LocalSqlServer");
-            options.UseSqlServer(connectionString, options => options.MigrationsAssembly("Infrastructure.SqlServer"));
-            break;
-        case "PostgreSql":
-            connectionString = builder.Configuration.GetConnectionString("PostgreSqlConnection");
-            options.UseNpgsql(connectionString, options => options.MigrationsAssembly("Infrastructure.PostgreSql"));
-            break;
-        default:
-            throw new ArgumentException("Database Provider is not supported.", nameof(databaseProvider));
-    }
-});
+builder.Services.AddApplicationDbContext(databaseProvider, connectionStringsSection);
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
