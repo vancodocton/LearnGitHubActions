@@ -37,7 +37,7 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '6.0.x'
-          include-prerelease: true
+          include-prerelease: false
 
       - name: Restore dotnet tools
         run: dotnet tool restore
@@ -55,13 +55,13 @@ jobs:
           dotnet ef migrations bundle --configuration Release --no-build --verbose -p src/WebMvc/ -o src/WebMvc/efbundle.exe -r win-x64
 
       - name: dotnet publish
-        run: dotnet publish  --configuration Release -o src/WebMvc/ --no-build
+        run: dotnet publish  --configuration Release -o src/WebMvc/publish --no-build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: WebMvc
-          path: ./src/WebMvc
+          path: src/WebMvc/publish
 
 
   deploy:
