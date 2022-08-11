@@ -1,0 +1,65 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Demo workflow.
+
+on:
+  push:
+    paths:
+      - '.github/workflows/demo.yml'
+  workflow_dispatch:
+
+jobs:
+  demo1:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        first:
+        - demo1:
+          os: win
+          version: x64
+        - demo2:
+          os: linux
+          version: x64
+    steps:
+    - name: demo step
+      run: |
+        echo $matrix.first
+        echo ${{ matrix.first.os }}
+        echo ${{ matrix.first.version }}
+
+  demo2:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: demo
+        run: |
+          echo "Finished";
+
+  demo3:
+    runs-on: ubuntu-latest
+    needs: demo2
+    steps:
+      - name: demo
+        run: |
+          echo "Finished";
+  demo4:
+    runs-on: ubuntu-latest
+    needs: 
+      - demo2
+    steps:
+      - name: demo
+        run: |
+          echo "Finished";
+  
+  demo5:
+    runs-on: ubuntu-latest
+    needs: 
+      - demo3
+      - demo4
+    steps:
+      - name: demo
+        run: |
+          echo "Finished";
+          
+
