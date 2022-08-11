@@ -1,0 +1,48 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:   
+    inputs:
+      isCD:
+        description: "Run CD:"
+        required: true
+        default: 'no'
+        type: choice
+        options:
+          - 'no'
+          - 'stage'
+          - 'production'
+
+jobs:
+  push_job:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Success
+      run: echo 'Success'
+      
+  workflow_dispatch_job:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Success
+      run: echo 'Success'
+      
+  puh_workflow_dispatch_job:
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && ${{ inputs.isCD }} == 'stage')
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Success
+      run: |
+        echo 'Success'
+        echo "github.event_name == 'push' = ${{ github.event_name == 'push' }}"
+        echo "github.event_name == 'workflow_dispatch' = ${{ github.event_name == 'workflow_dispatch' }}"
+        echo "inputs.isCD == 'stage'' = ${{ inputs.isCD == 'stage' }}"
+
