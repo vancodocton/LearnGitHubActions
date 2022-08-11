@@ -24,7 +24,9 @@ jobs:
 
     steps:
     - name: Success
-      run: echo 'Success'
+      run: |
+        echo 'Success'
+        echo 'ref_name = ${{ github.ref_name }}'
       
   workflow_dispatch_job:
     if: github.event_name == 'workflow_dispatch'
