@@ -35,7 +35,7 @@ jobs:
       run: echo 'Success'
       
   puh_workflow_dispatch_job:
-    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && ${{ inputs.isCD }} == 'stage')
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.isCD == 'stage')
     runs-on: ubuntu-latest
 
     steps:
