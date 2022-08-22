@@ -8,15 +8,20 @@ on:
 
 jobs:
   run-tests:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]        
+    
+    runs-on: $matrix.os
     services:
-      mssql:
+      mssql1:
         image: mcr.microsoft.com/mssql/server:2019-latest
         env:
           SA_PASSWORD: MyTestPassword
           ACCEPT_EULA: 'Y'
         ports:
           - 1433:1433
+        
     steps:
       - name: Hello
         run: |
