@@ -7,12 +7,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  run-tests:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]        
-    
-    runs-on: $matrix.os
+  run-tests: 
+    runs-on: windows-latest
     services:
       mssql1:
         image: mcr.microsoft.com/mssql/server:2019-latest
