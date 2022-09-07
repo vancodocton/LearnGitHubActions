@@ -8,16 +8,24 @@ on:
 
 jobs:
   run-tests: 
-    runs-on: windows-latest
+    strategy:
+      matrix:
+        os: ["windows-latest", "ubuntu-latest"]
+    runs-on: ${{ matrix.os }}
     services:
       mssql1:
         image: mcr.microsoft.com/mssql/server:2019-latest
         env:
-          SA_PASSWORD: MyTestPassword
+          SA_PASSWORD: myStrong(!)Password
           ACCEPT_EULA: 'Y'
         ports:
           - 1433:1433
-        
+        options: >-
+                    --health-cmd "/opt/mssql-tools/bin/sqlcmd -U $DB_USER -P $SA_PASSWORD -Q 'select 1' -b -o /dev/null"
+                    --health-interval 60s
+                    --health-timeout 30s
+                    --health-start-period 20s
+                    --health-retries 3
     steps:
       - name: Hello
         run: |
